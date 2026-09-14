@@ -26,3 +26,4 @@ C:\ApiCafes\ApiCafes\obj\Debug\net10.0\refint\ApiCafes.dll
 C:\ApiCafes\ApiCafes\obj\Debug\net10.0\ApiCafes.pdb
 C:\ApiCafes\ApiCafes\obj\Debug\net10.0\ApiCafes.genruntimeconfig.cache
 C:\ApiCafes\ApiCafes\obj\Debug\net10.0\ref\ApiCafes.dll
+C:\ApiCafes\ApiCafes\obj\Debug\net10.0\ApiCafes.sourcelink.json
