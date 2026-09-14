@@ -1,0 +1,35 @@
+info:
+  name: LIstagem de grãos de cafes
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:5050/api/cafes
+  body:
+    type: json
+    data: |-
+      [
+        {
+          "id": 1,
+          "nome": "caramela",
+          "torra": "media",
+          "disponivel": true,
+          "quantidades": 5
+        },
+        {
+          "id": 2,
+          "nome": "running club",
+          "torra": "media",
+          "disponivel": true,
+          "quantidades": 2
+        }
+      ]
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
