@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiCafes")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f092ccec1586f3af50c2f06d648bf5bb728e3920")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+655c1d23b71c4d5debf8cf4c3a6506677054d9f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiCafes")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiCafes")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
