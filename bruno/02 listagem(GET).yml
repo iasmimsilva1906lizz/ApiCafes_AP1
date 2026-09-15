@@ -15,14 +15,14 @@ http:
           "nome": "caramela",
           "torra": "media",
           "disponivel": true,
-          "quantidades": 5
+          "quantidade": 5
         },
         {
           "id": 2,
           "nome": "running club",
           "torra": "media",
           "disponivel": true,
-          "quantidades": 2
+          "quantidade": 2
         }
       ]
   auth: inherit

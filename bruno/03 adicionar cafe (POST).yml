@@ -13,7 +13,7 @@ http:
         "nome":"centro",
         "torra":"media",
         "disponivel":true,
-        "quantidades": 4
+        "quantidade": 4
       }
   auth: inherit
 

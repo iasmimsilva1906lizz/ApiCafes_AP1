@@ -14,7 +14,7 @@ http:
           "nome": "caramela",
           "torra": "media",
           "disponivel": false,
-          "quantidades": 5
+          "quantidade": 5
       }
   auth: inherit
 
