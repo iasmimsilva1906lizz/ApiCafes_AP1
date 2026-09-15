@@ -33,7 +33,8 @@ app.MapGet("/api/cafes/{id:int}",(int id) =>
     return Results.Ok(CafeEncontrado);
 });
 
-
+// abre o body do programa para poder ser adicionado um novo item na lista, deve retornar um 
+// 201 created 
 app.MapPost("/api/cafes", (CafeDTO dados) => 
 {
     var ProximoId =  Cafes.Count +1;
@@ -41,7 +42,10 @@ app.MapPost("/api/cafes", (CafeDTO dados) =>
     Cafes.Add(NovoCafe);
     return Results.Created($"/api/cafes/{NovoCafe.id}", NovoCafe);
 });
-
+// uma forma de atualizar um dado de um cafe da lista, deve ser passado o id 
+// e as informaçoes completas juntamente com as que serao modificadas.
+// se o id passado for de um item inexistente retorna um 404 no0f found;
+// se nao retornara um 
 app.MapPut("/api/cafes/{id:int}",(int id, CafeAtualizadoDTO dados) =>
 {
     int indice = Cafes.FindIndex (CafeDaLista => CafeDaLista.id == id);
@@ -54,7 +58,8 @@ app.MapPut("/api/cafes/{id:int}",(int id, CafeAtualizadoDTO dados) =>
     return Results.Ok(Atualizado);
 });
 
-
+// vai deletar um item(cafe) da lista de acordo com o id que for passado
+// retorna um 204 no content porwue o  item ja nao vai mais existir
 app.MapDelete("/api/cafes/{id:int}", (int id) =>
 {
     int indice = Cafes.FindIndex(CafeDaLista => CafeDaLista.id == id);
