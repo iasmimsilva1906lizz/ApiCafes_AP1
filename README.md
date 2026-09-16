@@ -10,7 +10,7 @@ API REST desenvolvida com Minimal APIs em ASP.NET Core (.NET 10), com o tema Caf
 
 ```bash
 git clone https://github.com/iasmimsilva1906lizz/ApiCafes_AP1.git
-cd ApiCafes
+cd ApiCafes_AP1
 dotnet restore
 dotnet run --urls http://localhost:5050
 ```
@@ -62,4 +62,4 @@ A Collection do Bruno utilizada para testar os endpoints está na pasta bruno(./
 
 ## Vídeo de demonstração
 
-🎥 [Link público do vídeo aqui]
+🎥 https://drive.google.com/file/d/1erAXEtkI9vJ1Pr_etzb2_eCLhOs3Msfi/view?usp=sharing 

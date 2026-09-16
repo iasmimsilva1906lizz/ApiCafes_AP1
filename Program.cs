@@ -20,8 +20,8 @@ app.MapGet("/api/cafes", () =>
     return Results.Ok(Cafes);    
 });
 
-// vai percorrer a lista de cafes e procurar pelo item que tem o mesmo id com o que foi escolhido; se tiver retorna um 200 ok; senao retorna um not found 404.
-
+// vai percorrer a lista de cafes e procurar pelo item que tem o mesmo id com 
+// o que foi escolhido; se tiver retorna um 200 ok; senao retorna um not found 404.
 app.MapGet("/api/cafes/{id:int}",(int id) =>
 {
     var CafeEncontrado = Cafes.Find(Cafe => Cafe.id == id);
@@ -42,10 +42,11 @@ app.MapPost("/api/cafes", (CafeDTO dados) =>
     Cafes.Add(NovoCafe);
     return Results.Created($"/api/cafes/{NovoCafe.id}", NovoCafe);
 });
+
 // uma forma de atualizar um dado de um cafe da lista, deve ser passado o id 
 // e as informaçoes completas juntamente com as que serao modificadas.
 // se o id passado for de um item inexistente retorna um 404 no0f found;
-// se nao retornara um 
+// se nao retornara um 200 ok 
 app.MapPut("/api/cafes/{id:int}",(int id, CafeAtualizadoDTO dados) =>
 {
     int indice = Cafes.FindIndex (CafeDaLista => CafeDaLista.id == id);
