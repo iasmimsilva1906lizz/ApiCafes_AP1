@@ -1,6 +1,9 @@
-using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ApiDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
 // primeiro get para mostrar status da api 
 app.MapGet("/", () => "Api cafes esta no ar");
@@ -80,3 +83,21 @@ record Cafe (int id, string nome, string torra, bool disponivel, int quantidade)
 record CafeDTO (string nome, string torra, int quantidade);
 
 record CafeAtualizadoDTO (string nome, string torra, bool disponivel, int quantidade);
+
+class CafesEntity
+{
+    public int Id {get; set;}
+    public String nome {get; set;}
+    public String torra {get; set;}
+    public bool disponivel {get; set;}
+    public int quantidade {get; set;}
+}
+class ApiDbContext : DbContext
+{
+    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
+    {
+            
+    }
+    public DbSet<CafesEntity> Cafes => Set<CafesEntity>();
+  
+}
