@@ -18,16 +18,17 @@ var Cafes = new List<Cafe>
 };
 
 // map.get() é a rota que o comando percorre, retornando um resultado (a lista de cafes), um status, no casso o 200 ok;
-app.MapGet("/api/cafes", () =>
+app.MapGet("/api/cafes",  async (ApiDbContext db ) =>
 {
-    return Results.Ok(Cafes);    
+    var cafes = await db.Cafes.ToListAsync();
+    return Results.Ok(cafes);    
 });
 
 // vai percorrer a lista de cafes e procurar pelo item que tem o mesmo id com 
 // o que foi escolhido; se tiver retorna um 200 ok; senao retorna um not found 404.
-app.MapGet("/api/cafes/{id:int}",(int id) =>
+app.MapGet("/api/cafes/{id:int}", async  (int id, ApiDbContext db) =>
 {
-    var CafeEncontrado = Cafes.Find(Cafe => Cafe.id == id);
+    var CafeEncontrado = db.Cafes.Find(id);
 
     if (CafeEncontrado is null)
     {
@@ -38,12 +39,12 @@ app.MapGet("/api/cafes/{id:int}",(int id) =>
 
 // abre o body do programa para poder ser adicionado um novo item na lista, deve retornar um 
 // 201 created 
-app.MapPost("/api/cafes", (CafeDTO dados) => 
+app.MapPost("/api/cafes", async (CafesEntity dados, ApiDbContext db) => 
 {
-    var ProximoId =  Cafes.Count +1;
-    var NovoCafe = new Cafe(ProximoId, dados.nome, dados.torra, true, dados.quantidade);
-    Cafes.Add(NovoCafe);
-    return Results.Created($"/api/cafes/{NovoCafe.id}", NovoCafe);
+    db.Cafes.Add(dados);
+    // var NovoCafe = new Cafe(ProximoId, dados.nome, dados.torra, true, dados.quantidade);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/cafes/{dados.id}", dados);
 });
 
 // uma forma de atualizar um dado de um cafe da lista, deve ser passado o id 
@@ -86,7 +87,7 @@ record CafeAtualizadoDTO (string nome, string torra, bool disponivel, int quanti
 
 class CafesEntity
 {
-    public int Id {get; set;}
+    public int id {get; set;}
     public String nome {get; set;}
     public String torra {get; set;}
     public bool disponivel {get; set;}
@@ -94,9 +95,10 @@ class CafesEntity
 }
 class ApiDbContext : DbContext
 {
-    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
+    public ApiDbContext(DbContextOptions<ApiDbContext> options)
+     : base(options)
     {
-            
+     
     }
     public DbSet<CafesEntity> Cafes => Set<CafesEntity>();
   
