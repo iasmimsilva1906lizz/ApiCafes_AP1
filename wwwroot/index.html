@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Catálogo de Grãos de Café - Demonstração</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">☕</span>
+        <div>
+          <h1>Catálogo de Grãos de Café</h1>
+          <p class="subtitle">Interface de Demonstração Visual (AP1)</p>
+        </div>
+      </div>
+      <span class="badge badge-demo">Modo Demonstração</span>
+    </div>
+  </header>
+
+  <div class="demo-alert" role="region" aria-label="Aviso de ambiente de demonstração">
+    <div class="demo-alert-content">
+      <span class="alert-icon" aria-hidden="true">ℹ️</span>
+      <p>
+        <strong>Aviso:</strong> Esta tela opera exclusivamente com <strong>dados fictícios em memória local</strong>.
+        Nenhuma requisição de rede é enviada para o backend da API.
+      </p>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Seção de Cadastro Demonstrativo -->
+    <section class="card" aria-labelledby="form-heading">
+      <div class="card-header">
+        <h2 id="form-heading">Cadastrar Novo Grão (Demonstração)</h2>
+        <p class="section-description">
+          Preencha os dados do grão de café para simular a adição do item na listagem local.
+        </p>
+      </div>
+
+      <!-- Área de Notificações / Mensagens de Status -->
+      <div id="status-container" class="status-container" role="status" aria-live="polite"></div>
+
+      <form id="coffee-form" novalidate>
+        <div class="form-grid">
+          <!-- Nome do Grão -->
+          <div class="form-field">
+            <label for="coffee-name">
+              Nome do Grão <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="coffee-name" 
+              name="nome" 
+              placeholder="Ex.: Bourbon Amarelo"
+              aria-describedby="coffee-name-desc"
+              required
+            >
+            <span id="coffee-name-desc" class="field-hint">Informe a denominação comercial ou variedade do grão.</span>
+          </div>
+
+          <!-- Tipo de Torra -->
+          <div class="form-field">
+            <label for="coffee-roast">
+              Tipo de Torra <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <select 
+              id="coffee-roast" 
+              name="torra" 
+              aria-describedby="coffee-roast-desc"
+              required
+            >
+              <option value="">Selecione o nível de torra</option>
+              <option value="clara">Clara</option>
+              <option value="média">Média</option>
+              <option value="escura">Escura</option>
+            </select>
+            <span id="coffee-roast-desc" class="field-hint">Classificação sensorial da torra do grão.</span>
+          </div>
+
+          <!-- Quantidade em Estoque -->
+          <div class="form-field">
+            <label for="coffee-quantity">
+              Quantidade em Estoque (kg) <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input 
+              type="number" 
+              id="coffee-quantity" 
+              name="quantidade" 
+              placeholder="Ex.: 10" 
+              min="0" 
+              step="1"
+              aria-describedby="coffee-quantity-desc"
+              required
+            >
+            <span id="coffee-quantity-desc" class="field-hint">Número inteiro de pacotes ou quilogramas em estoque.</span>
+          </div>
+
+          <!-- Disponibilidade (Checkbox acessível) -->
+          <div class="form-field form-field-checkbox">
+            <div class="checkbox-wrapper">
+              <input 
+                type="checkbox" 
+                id="coffee-available" 
+                name="disponivel" 
+                checked
+              >
+              <label for="coffee-available">
+                Grão disponível para comercialização
+              </label>
+            </div>
+            <span class="field-hint">Marque se o grão está ativo para pedidos.</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-submit">
+            Simular Cadastro
+          </button>
+          <button type="reset" class="btn btn-secondary" id="btn-reset">
+            Limpar Formulário
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Seção de Listagem de Grãos -->
+    <section class="card" aria-labelledby="list-heading">
+      <div class="card-header list-header">
+        <div>
+          <h2 id="list-heading">Grãos Cadastrados</h2>
+          <p class="section-description">
+            Visualização dos registros mantidos localmente na demonstração.
+          </p>
+        </div>
+        <div class="counter-badge" id="items-counter" aria-label="Total de grãos cadastrados">
+          0 itens
+        </div>
+      </div>
+
+      <div class="table-wrapper" tabindex="0" role="region" aria-label="Tabela de grãos de café de demonstração">
+        <table class="coffee-table">
+          <thead>
+            <tr>
+              <th scope="col" class="col-id">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Torra</th>
+              <th scope="col" class="col-num">Quantidade</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="col-actions">Ações de Teste</th>
+            </tr>
+          </thead>
+          <tbody id="coffee-table-body">
+            <!-- Linhas inseridas dinamicamente pelo app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <p class="empty-state-title">Nenhum grão na demonstração</p>
+        <p>Utilize o formulário acima para adicionar um item fictício à lista.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>Demonstração visual para a API de Cafés (AP1) • Execução estritamente em memória local no navegador.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

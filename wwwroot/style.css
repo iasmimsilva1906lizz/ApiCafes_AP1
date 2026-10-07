@@ -1,0 +1,677 @@
+/* ==========================================================================
+   Estilos da Interface de Demonstração - Catálogo de Grãos de Café (AP1)
+   Tecnologias: CSS Puro sem frameworks ou bibliotecas externas.
+   Foco: Responsividade avançada para Celulares, Tablets e Desktops.
+   ========================================================================== */
+
+:root {
+  /* Paleta de Cores Inspirada em Café */
+  --color-bg: #f9f6f0;
+  --color-surface: #ffffff;
+  --color-text: #2d241e;
+  --color-text-muted: #6b5c51;
+  --color-border: #e3d9cf;
+  
+  --color-primary: #5c3822;
+  --color-primary-hover: #432817;
+  --color-primary-contrast: #ffffff;
+  
+  --color-secondary: #f0eae1;
+  --color-secondary-hover: #e2d7c7;
+  --color-secondary-text: #432817;
+
+  --color-focus: #b25900;
+  --color-focus-outline: rgba(178, 89, 0, 0.4);
+
+  --color-success-bg: #edf7ee;
+  --color-success-border: #9fdb9f;
+  --color-success-text: #175225;
+
+  --color-error-bg: #fdf2f2;
+  --color-error-border: #f8b4b4;
+  --color-error-text: #8e1818;
+
+  --color-warning-bg: #fff8e6;
+  --color-warning-border: #f7d27e;
+  --color-warning-text: #6b4d00;
+
+  --color-badge-bg: #e8ded4;
+  --color-badge-text: #4a3424;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 1px 3px rgba(45, 36, 30, 0.08);
+  --shadow-md: 0 4px 12px rgba(45, 36, 30, 0.08);
+}
+
+/* Reset básico e prevenção estrita de corte/overflow horizontal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Indicador de Foco Visível para Teclado (Acessibilidade) */
+*:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-focus-outline);
+}
+
+/* ==========================================================================
+   Cabeçalho
+   ========================================================================== */
+.app-header {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  padding: 1.25rem 1rem;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+}
+
+.header-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.brand-icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.brand h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   Alerta de Demonstração
+   ========================================================================== */
+.demo-alert {
+  background-color: var(--color-warning-bg);
+  border-bottom: 1px solid var(--color-warning-border);
+  color: var(--color-warning-text);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.demo-alert-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.4;
+}
+
+.alert-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ==========================================================================
+   Container Principal e Cards
+   ========================================================================== */
+.container {
+  max-width: 1080px;
+  width: 100%;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  min-width: 0; /* Previne overflow em grids flexíveis */
+}
+
+.card-header {
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.card-header h2 {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.section-description {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Formulário e Campos
+   ========================================================================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 680px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-field-checkbox {
+    grid-column: span 2;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.form-field label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.required-indicator {
+  color: var(--color-error-text);
+  font-weight: bold;
+}
+
+.field-hint {
+  font-size: 0.775rem;
+  color: var(--color-text-muted);
+  line-height: 1.3;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  min-height: 44px; /* Dimensão mínima recomendada para toque */
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem; /* 16px no mobile impede zoom indesejado no Safari/iOS */
+  font-family: inherit;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+  color: var(--color-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--color-focus);
+}
+
+.input-invalid {
+  border-color: var(--color-error-text) !important;
+  background-color: var(--color-error-bg);
+}
+
+/* Checkbox Acessível com Área de Toque Adequada */
+.form-field-checkbox {
+  margin-top: 0.25rem;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+}
+
+input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-wrapper label {
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Botões e Ações
+   ========================================================================== */
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s, transform 0.05s;
+  font-family: inherit;
+  text-align: center;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.btn-sm {
+  min-height: 36px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger-outline {
+  background: transparent;
+  color: var(--color-error-text);
+  border: 1px solid var(--color-error-border);
+}
+
+.btn-danger-outline:hover {
+  background-color: var(--color-error-bg);
+}
+
+/* ==========================================================================
+   Mensagens de Notificação e Feedback Acessíveis
+   ========================================================================== */
+.status-container {
+  margin-bottom: 1.25rem;
+}
+
+.status-box {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.925rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.status-box.success {
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: var(--color-success-text);
+}
+
+.status-box.error {
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
+}
+
+/* ==========================================================================
+   Badges
+   ========================================================================== */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-demo {
+  background-color: #ffecd1;
+  color: #7a3e00;
+  border: 1px solid #fbd38d;
+}
+
+.badge-available {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid var(--color-success-border);
+}
+
+.badge-unavailable {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.badge-roast {
+  background-color: var(--color-badge-bg);
+  color: var(--color-badge-text);
+  text-transform: capitalize;
+}
+
+/* ==========================================================================
+   Cabeçalho da Listagem
+   ========================================================================== */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.counter-badge {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-text);
+  border: 1px solid var(--color-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Tabela de Grãos (Desktop e Telas Maiores > 768px)
+   ========================================================================== */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+
+.coffee-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+}
+
+.coffee-table th,
+.coffee-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.coffee-table th {
+  background-color: #f7f3ed;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.coffee-table tbody tr:hover {
+  background-color: #faf7f2;
+}
+
+.coffee-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col-id {
+  width: 60px;
+  color: var(--color-text-muted);
+}
+
+.col-num {
+  text-align: right;
+  width: 110px;
+}
+
+.coffee-table td.col-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.col-actions {
+  width: 150px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Layout Responsivo para Tablets e Celulares (<= 768px)
+   Evita qualquer corte de tela transformando linhas em blocos/cards
+   ========================================================================== */
+@media (max-width: 768px) {
+  .table-wrapper {
+    border: none;
+    overflow-x: visible;
+  }
+
+  .coffee-table,
+  .coffee-table tbody,
+  .coffee-table tr,
+  .coffee-table td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Oculta o cabeçalho tradicional da tabela visualmente */
+  .coffee-table thead {
+    display: none;
+  }
+
+  /* Transforma cada linha de café em um cartão individual nítido */
+  .coffee-table tbody tr {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .coffee-table tbody tr:hover {
+    background-color: #ffffff;
+  }
+
+  .coffee-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed var(--color-border);
+    text-align: right;
+    font-size: 0.925rem;
+  }
+
+  .coffee-table td.col-id,
+  .coffee-table td.col-num,
+  .coffee-table td.col-actions {
+    width: 100%;
+    text-align: right;
+  }
+
+  /* Renderiza o rótulo da coluna via data-label */
+  .coffee-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-size: 0.825rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-align: left;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* Linha de ações no card mobile */
+  .coffee-table td.col-actions {
+    border-bottom: none;
+    padding-top: 0.65rem;
+    justify-content: stretch;
+  }
+
+  .coffee-table td.col-actions::before {
+    display: none;
+  }
+
+  .coffee-table td.col-actions .btn {
+    width: 100%;
+    min-height: 42px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajustes Específicos para Telas Pequenas de Celular (<= 560px) */
+@media (max-width: 560px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .brand h1 {
+    font-size: 1.15rem;
+  }
+
+  .badge-demo {
+    align-self: flex-start;
+  }
+
+  .container {
+    padding: 0 0.65rem;
+    margin: 1rem auto;
+    gap: 1rem;
+  }
+
+  .card {
+    padding: 1rem 0.85rem;
+    border-radius: var(--radius-md);
+  }
+
+  .card-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  .demo-alert {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   Estado Vazio e Rodapé
+   ========================================================================== */
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--color-text-muted);
+}
+
+.empty-state-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.app-footer {
+  background-color: #efe8de;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.825rem;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
