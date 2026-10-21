@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddCors();
 var app = builder.Build();
+app.UseCors(policy => policy.AllowAnyOrigin()
+    .AllowAnyHeader().AllowAnyMethod());
 // primeiro get para mostrar status da api 
 app.MapGet("/", () => "Api cafes esta no ar");
 
@@ -13,8 +15,7 @@ app.MapGet("/", () => "Api cafes esta no ar");
 
 var Cafes = new List<Cafe>
 {
-    new Cafe(1, "Caramela", "média", true, 5),
-    new Cafe(2, "Running Club", "clara", true, 6)
+
 };
 
 // map.get() é a rota que o comando percorre, retornando um resultado (a lista de cafes), um status, no casso o 200 ok;
@@ -51,28 +52,34 @@ app.MapPost("/api/cafes", async (CafesEntity dados, ApiDbContext db) =>
 // e as informaçoes completas juntamente com as que serao modificadas.
 // se o id passado for de um item inexistente retorna um 404 no0f found;
 // se nao retornara um 200 ok 
-app.MapPut("/api/cafes/{id:int}",(int id, CafeAtualizadoDTO dados) =>
+app.MapPut("/api/cafes/{id:int}",async (int id, CafesEntity cafeAtualizado, ApiDbContext db) =>
 {
-    int indice = Cafes.FindIndex (CafeDaLista => CafeDaLista.id == id);
-    if(indice == -1)
-    {
-        return Results.NotFound();
-    }
-    var Atualizado = new Cafe (id, dados.nome, dados.torra, dados.disponivel, dados.quantidade);
-    Cafes[indice] = Atualizado;
-    return Results.Ok(Atualizado);
+    var cafe = await db.Cafes.FindAsync(id);
+    if (cafe is null) Results.NotFound();
+        cafe.nome = cafeAtualizado. nome;
+        cafe.torra = cafeAtualizado.torra;
+        cafe.disponivel = cafeAtualizado.disponivel;
+        cafe.quantidade = cafeAtualizado.quantidade;
+        // colocar todas as infrmacoes que podew ser atualizadas 
+
+    await db.SaveChangesAsync();
+    return Results.Ok(cafe);
 });
 
 // vai deletar um item(cafe) da lista de acordo com o id que for passado
 // retorna um 204 no content porwue o  item ja nao vai mais existir
-app.MapDelete("/api/cafes/{id:int}", (int id) =>
+app.MapDelete("/api/cafes/{id:int}", async (int id,ApiDbContext db) =>
 {
-    int indice = Cafes.FindIndex(CafeDaLista => CafeDaLista.id == id);
-    if (indice == -1)
-    {
-        return Results.NotFound();
-    }
-    Cafes.RemoveAt(indice);
+    var cafe = await db.Cafes.FindAsync(id);
+    if (cafe is null) Results.NotFound();
+
+    // int indice = Cafes.FindIndex(CafeDaLista => CafeDaLista.id == id);
+    // if (indice == -1)
+    // {
+    //     return Results.NotFound();
+    // }
+    db.Cafes.Remove(cafe);
+    await db.SaveChangesAsync();
     return Results.NoContent();
 });
 

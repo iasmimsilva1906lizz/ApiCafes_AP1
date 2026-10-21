@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Catálogo de Grãos de Café - Demonstração</title>
+  <title>Catálogo de Grãos de Café</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,30 +13,20 @@
         <span class="brand-icon" aria-hidden="true">☕</span>
         <div>
           <h1>Catálogo de Grãos de Café</h1>
-          <p class="subtitle">Interface de Demonstração Visual (AP1)</p>
+          <p class="subtitle">Gerenciamento Integrado à API REST</p>
         </div>
       </div>
-      <span class="badge badge-demo">Modo Demonstração</span>
+      <span class="badge badge-connected" id="api-status-badge">API Conectada</span>
     </div>
   </header>
 
-  <div class="demo-alert" role="region" aria-label="Aviso de ambiente de demonstração">
-    <div class="demo-alert-content">
-      <span class="alert-icon" aria-hidden="true">ℹ️</span>
-      <p>
-        <strong>Aviso:</strong> Esta tela opera exclusivamente com <strong>dados fictícios em memória local</strong>.
-        Nenhuma requisição de rede é enviada para o backend da API.
-      </p>
-    </div>
-  </div>
-
   <main class="container">
-    <!-- Seção de Cadastro Demonstrativo -->
+    <!-- Seção de Cadastro / Edição -->
     <section class="card" aria-labelledby="form-heading">
       <div class="card-header">
-        <h2 id="form-heading">Cadastrar Novo Grão (Demonstração)</h2>
-        <p class="section-description">
-          Preencha os dados do grão de café para simular a adição do item na listagem local.
+        <h2 id="form-heading">Cadastrar Novo Grão</h2>
+        <p class="section-description" id="form-description">
+          Preencha os dados do grão de café para cadastrar na API.
         </p>
       </div>
 
@@ -44,6 +34,8 @@
       <div id="status-container" class="status-container" role="status" aria-live="polite"></div>
 
       <form id="coffee-form" novalidate>
+        <input type="hidden" id="coffee-id" value="">
+
         <div class="form-grid">
           <!-- Nome do Grão -->
           <div class="form-field">
@@ -74,7 +66,7 @@
             >
               <option value="">Selecione o nível de torra</option>
               <option value="clara">Clara</option>
-              <option value="média">Média</option>
+              <option value="media">Média</option>
               <option value="escura">Escura</option>
             </select>
             <span id="coffee-roast-desc" class="field-hint">Classificação sensorial da torra do grão.</span>
@@ -117,7 +109,10 @@
 
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="btn-submit">
-            Simular Cadastro
+            Cadastrar Grão
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-cancel-edit" style="display: none;">
+            Cancelar Edição
           </button>
           <button type="reset" class="btn btn-secondary" id="btn-reset">
             Limpar Formulário
@@ -132,7 +127,7 @@
         <div>
           <h2 id="list-heading">Grãos Cadastrados</h2>
           <p class="section-description">
-            Visualização dos registros mantidos localmente na demonstração.
+            Visualização dos registros sincronizados com a API.
           </p>
         </div>
         <div class="counter-badge" id="items-counter" aria-label="Total de grãos cadastrados">
@@ -140,7 +135,11 @@
         </div>
       </div>
 
-      <div class="table-wrapper" tabindex="0" role="region" aria-label="Tabela de grãos de café de demonstração">
+      <div id="loading-state" class="loading-state" style="display: none;">
+        <p class="loading-state-title">Carregando grãos da API...</p>
+      </div>
+
+      <div class="table-wrapper" tabindex="0" role="region" aria-label="Tabela de grãos de café">
         <table class="coffee-table">
           <thead>
             <tr>
@@ -149,7 +148,7 @@
               <th scope="col">Torra</th>
               <th scope="col" class="col-num">Quantidade</th>
               <th scope="col">Status</th>
-              <th scope="col" class="col-actions">Ações de Teste</th>
+              <th scope="col" class="col-actions">Ações</th>
             </tr>
           </thead>
           <tbody id="coffee-table-body">
@@ -159,15 +158,15 @@
       </div>
 
       <div id="empty-state" class="empty-state" style="display: none;">
-        <p class="empty-state-title">Nenhum grão na demonstração</p>
-        <p>Utilize o formulário acima para adicionar um item fictício à lista.</p>
+        <p class="empty-state-title">Nenhum grão cadastrado</p>
+        <p>Utilize o formulário acima para adicionar um novo item à API.</p>
       </div>
     </section>
   </main>
 
   <footer class="app-footer">
     <div class="footer-content">
-      <p>Demonstração visual para a API de Cafés (AP1) • Execução estritamente em memória local no navegador.</p>
+      <p>Catálogo de Grãos de Café • Integração direta com API REST.</p>
     </div>
   </footer>
 

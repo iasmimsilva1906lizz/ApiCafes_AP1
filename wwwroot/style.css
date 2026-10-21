@@ -408,6 +408,12 @@ input[type="checkbox"] {
   border: 1px solid #fbd38d;
 }
 
+.badge-connected {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid var(--color-success-border);
+}
+
 .badge-available {
   background-color: var(--color-success-bg);
   color: var(--color-success-text);
@@ -505,8 +511,15 @@ input[type="checkbox"] {
 }
 
 .col-actions {
-  width: 150px;
+  width: 180px;
   text-align: center;
+}
+
+.actions-group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ==========================================================================
@@ -590,10 +603,17 @@ input[type="checkbox"] {
     display: none;
   }
 
+  .coffee-table td.col-actions .actions-group {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+
   .coffee-table td.col-actions .btn {
     width: 100%;
     min-height: 42px;
     font-size: 0.9rem;
+    flex: 1;
   }
 }
 
@@ -644,8 +664,21 @@ input[type="checkbox"] {
 }
 
 /* ==========================================================================
-   Estado Vazio e Rodapé
+   Estado Vazio, Carregamento e Rodapé
    ========================================================================== */
+.loading-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--color-text-muted);
+}
+
+.loading-state-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
 .empty-state {
   text-align: center;
   padding: 2.5rem 1rem;
