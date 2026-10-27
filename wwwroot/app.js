@@ -98,10 +98,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /**
    * Cancela o modo de edição e restaura o formulário para cadastro.
+   * Limpa os campos explicitamente sem disparar form.reset() para evitar loops de eventos.
    */
   function cancelarEdicao() {
     idInput.value = "";
-    form.reset();
+    nameInput.value = "";
+    roastSelect.value = "";
+    quantityInput.value = "";
     availableCheckbox.checked = true;
     formHeading.textContent = "Cadastrar Novo Grão";
     formDescription.textContent = "Preencha os dados do grão de café para cadastrar na API.";
@@ -406,10 +409,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Botão Limpar Formulário
   form.addEventListener("reset", () => {
-    setTimeout(() => {
-      cancelarEdicao();
-      statusContainer.innerHTML = "";
-    }, 0);
+    // Restaura o estado de edição para cadastro sem chamar form.reset()
+    idInput.value = "";
+    availableCheckbox.checked = true;
+    formHeading.textContent = "Cadastrar Novo Grão";
+    formDescription.textContent = "Preencha os dados do grão de café para cadastrar na API.";
+    submitBtn.textContent = "Cadastrar Grão";
+    cancelEditBtn.style.display = "none";
+    clearInputValidationErrors();
+    statusContainer.innerHTML = "";
   });
 
   // Carregamento inicial da lista ao abrir a interface
