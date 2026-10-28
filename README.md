@@ -1,65 +1,68 @@
-# API CAFETERIA(CAFÉS EM GRÃOS)
+# API Cafeteria (grãos de café) — AP2
 
-API REST desenvolvida com Minimal APIs em ASP.NET Core (.NET 10), com o tema Cafeteria. O objetivo é praticar um CRUD completo (Create, Read, Update, Delete) usando uma List<T> em memória, sem banco de dados.
+API REST com Minimal APIs em ASP.NET Core (.NET 10), **Entity Framework Core + SQLite** e frontend em HTML/CSS/JS servido pela própria API (mesma origem). Evolução da AP1: a `List<T>` em memória foi substituída por banco de dados.
 
-# Requisitos
+## Requisitos
 
-.NET 10 SDK instalado — [download aqui](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [Bruno](https://www.usebruno.com/) (para a Collection de testes)
 
-# Como executar o projeto
+## Como executar
 
 ```bash
 git clone https://github.com/iasmimsilva1906lizz/ApiCafes_AP1.git
 cd ApiCafes_AP1
 dotnet restore
+dotnet build
 dotnet run --urls http://localhost:5050
 ```
-# URL local utilizada nos testes
-http://localhost:5050
 
-## Endpoints
+O banco SQLite (`api-cafes-aula09.db`) é criado automaticamente ao iniciar, a partir das migrations da pasta `Migrations/`. Se preferir prepará-lo manualmente:
 
-| Método | Rota                         | Descrição                                   |
-|--------|------------------------------|---------------------------------------------|
-| GET    | `/`                          | Informa que a API está no ar                |
-| GET    | `/api/cafes`                 | Lista todos os Cafés                        |
-| GET    | `/api/cafes/{id}`            | Busca um café pelo id                       |
-| POST   | `/api/cafes`                 | Cadastra um novo café                       |
-| PUT    | `/api/cafes/{id}`            | Atualiza um café existente                  |
-| DELETE | `/api/cafes/{id}`            | Remove um café                              |
+```bash
+dotnet tool install --global dotnet-ef
+dotnet ef database update
+```
 
-## Exemplos de JSON
+O arquivo `.db` não é versionado; os dados cadastrados ficam salvos nele e **permanecem após reiniciar a API**.
 
-### POST `/api/cafes`
+## Como abrir a interface
+
+Com a API rodando, acesse **http://localhost:5050/** no navegador. A interface (pasta `wwwroot/`) lista, cadastra, edita e exclui grãos usando os endpoints reais.
+
+## Rotas da API
+
+| Método | Rota               | Descrição            | Resposta                  |
+|--------|--------------------|----------------------|---------------------------|
+| GET    | `/status`          | Status da API        | 200                       |
+| GET    | `/api/cafes`       | Lista todos os cafés | 200                       |
+| GET    | `/api/cafes/{id}`  | Busca por id         | 200 ou 404                |
+| POST   | `/api/cafes`       | Cadastra um café     | 201 (400 se inválido)     |
+| PUT    | `/api/cafes/{id}`  | Atualiza um café     | 200, 404 (400 se inválido)|
+| DELETE | `/api/cafes/{id}`  | Remove um café       | 204 ou 404                |
+
+### Exemplo de JSON (POST e PUT)
 
 ```json
 {
-    "nome":"centro",
-    "torra":"media",
-    "disponivel":true,
-    "quantidades": 4
+  "nome": "Bourbon Amarelo",
+  "torra": "media",
+  "disponivel": true,
+  "quantidade": 10
 }
 ```
 
-### PUT `/api/cafes/{id}`
+## Estrutura
 
-```json
-{
-    "nome":"centro",
-    "torra":"media",
-    "disponivel":true,
-    "quantidades": 1
-}
-```
-
-## Aviso sobre persistência dos dados
-
-⚠️ Os dados ficam armazenados apenas em memória, em uma `List<T>`. Todo dado criado, atualizado ou removido é perdido quando a aplicação é reiniciada.
+- `Program.cs` — Model (`CafesEntity`), `ApiDbContext` e rotas
+- `Migrations/` — migrations do EF Core
+- `wwwroot/` — frontend (`index.html`, `app.js`, `style.css`)
+- `bruno/` — Collection com GET (lista), GET por id, POST, PUT, DELETE e 404
 
 ## Collection de testes
 
-A Collection do Bruno utilizada para testar os endpoints está na pasta bruno(./bruno) deste repositório. Para usá-la, abra o Bruno e importe essa pasta como uma Collection existente.
+Abra o Bruno e importe a pasta `bruno/` como Collection existente. Execute na ordem (01 a 07); o último request confirma o 404 após a exclusão.
 
-## Vídeo de demonstração
+## Vídeo de demonstração — AP2
 
-🎥 https://drive.google.com/file/d/1erAXEtkI9vJ1Pr_etzb2_eCLhOs3Msfi/view?usp=sharing 
+🎥 COLE_AQUI_O_LINK_PUBLICO_DO_VIDEO_DA_AP2
