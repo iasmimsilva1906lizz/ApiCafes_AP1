@@ -26,7 +26,6 @@ app.MapGet("/status", () => "Api cafes esta no ar");
 var Cafes = new List<Cafe>
 {
 
-
 };
 
 // map.get() é a rota que o comando percorre, retornando um resultado 
