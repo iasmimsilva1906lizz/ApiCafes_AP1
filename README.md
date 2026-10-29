@@ -65,4 +65,4 @@ Abra o Bruno e importe a pasta `bruno/` como Collection existente. Execute na or
 
 ## Vídeo de demonstração — AP2
 
-🎥 COLE_AQUI_O_LINK_PUBLICO_DO_VIDEO_DA_AP2
+🎥 https://drive.google.com/file/d/165TH_MWolxh6sGuNWknZ4tQGQEvb7RG4/view?usp=sharing
