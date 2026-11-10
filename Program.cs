@@ -3,7 +3,22 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApiDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddCors();
-var app = builder.Build(); app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+var app = builder.Build();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        await context.Response.WriteAsJsonAsync(new
+        {
+            mensagem = "Ocorreu um erro interno. Tente novamente mais tarde."
+        });
+    });
+});
+ app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
@@ -86,6 +101,11 @@ app.MapDelete("/api/cafes/{id:int}", async (int id,ApiDbContext db) =>
     await db.SaveChangesAsync();
     return Results.NoContent();
 });
+
+// app.MapGet("/api/teste-erro", () =>
+// {
+//     throw new InvalidOperationException("Falha simulada para teste.");
+// });
 
 
 app.Run();
