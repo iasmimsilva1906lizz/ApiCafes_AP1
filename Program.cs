@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using ApiCafes.Models;
+using ApiCafes.Dtos;
+using ApiCafes.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApiDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -38,7 +41,10 @@ app.MapGet("/status", () => "Api cafes esta no ar");
 // a lista nao possui nenhuma infrmaçao no momento de exemplo porque 
 // ja foi tudo salvo no banco de dado, a partir de agora as
 //  infrmaoçoes nao somem mais depois de fechar a api;
-var Cafes = new List<Cafe>
+var Cafes = new List<CafesDto>
+{
+
+};
 {
 
 };
@@ -109,20 +115,9 @@ app.MapDelete("/api/cafes/{id:int}", async (int id,ApiDbContext db) =>
 
 
 app.Run();
-record Cafe (int id, string nome, string torra, bool disponivel, int quantidade);
 
-record CafeDTO (string nome, string torra, int quantidade, bool disponivel);
 
-record CafeAtualizadoDTO (string nome, string torra, bool disponivel, int quantidade);
 
-class CafesEntity
-{
-    public int id {get; set;}
-    public String? nome {get; set;}
-    public String? torra {get; set;}
-    public bool disponivel {get; set;}
-    public int quantidade {get; set;}
-}
 class ApiDbContext : DbContext
 {
     public ApiDbContext(DbContextOptions<ApiDbContext> options)
