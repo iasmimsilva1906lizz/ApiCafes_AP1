@@ -1,0 +1,10 @@
+namespace ApiCafes.Dtos;
+class ApiDbContext : DbContext
+{
+    public ApiDbContext(DbContextOptions<ApiDbContext> options)
+     : base(options)
+    {
+     
+    }
+    public DbSet<CafesEntity> Cafes => Set<CafesEntity>();
+}

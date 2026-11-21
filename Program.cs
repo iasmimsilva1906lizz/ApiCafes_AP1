@@ -33,8 +33,6 @@ using (var scope = app.Services.CreateScope())
     
 }
 
-// primeiro get para mostrar status da api 
-app.MapGet("/status", () => "Api cafes esta no ar");
 
 // cria a lista, nome da lista é cafes, os itens dentro dela são cafes;
 // a lista possui o id, nome, torra, disponibilidade e quantidade;
