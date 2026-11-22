@@ -21,7 +21,7 @@ app.UseExceptionHandler(errorApp =>
         });
     });
 });
- app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
@@ -40,9 +40,6 @@ using (var scope = app.Services.CreateScope())
 // ja foi tudo salvo no banco de dado, a partir de agora as
 //  infrmaoçoes nao somem mais depois de fechar a api;
 var Cafes = new List<CafesDto>
-{
-
-};
 {
 
 };
@@ -113,15 +110,3 @@ app.MapDelete("/api/cafes/{id:int}", async (int id,ApiDbContext db) =>
 
 
 app.Run();
-
-
-
-class ApiDbContext : DbContext
-{
-    public ApiDbContext(DbContextOptions<ApiDbContext> options)
-     : base(options)
-    {
-     
-    }
-    public DbSet<CafesEntity> Cafes => Set<CafesEntity>();
-}
